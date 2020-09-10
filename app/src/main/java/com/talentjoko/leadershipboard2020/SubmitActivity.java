@@ -1,5 +1,6 @@
 package com.talentjoko.leadershipboard2020;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -63,6 +64,12 @@ public class SubmitActivity extends AppCompatActivity {
 
             }
         });
+
+
+        ActionBar actionBar = getSupportActionBar(); if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); actionBar.setHomeButtonEnabled(true); getSupportActionBar().setDisplayHomeAsUpEnabled(true); } 
+
+
+
 
     }
 
