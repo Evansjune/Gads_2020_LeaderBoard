@@ -1,14 +1,11 @@
 package com.talentjoko.leadershipboard2020;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,11 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class SubmitActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
@@ -93,7 +87,7 @@ public class SubmitActivity extends AppCompatActivity {
                       postData(firstName.getText().toString().trim(), lastName.getText().toString().trim() ,email.getText().toString().trim(),githubLink.getText().toString().trim());
                 } else {
                     dialog.dismiss();
-                   
+
                 }
 
                 Toast.makeText(getApplicationContext(),"Required Fields Missing!",Toast.LENGTH_SHORT).show();
