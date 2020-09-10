@@ -11,16 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubmitActivity"
+        <activity
+            android:name=".TabbedActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
 
+            />
+        <activity
+            android:name=".SubmitActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".TabbedActivity"
+            />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_tabbed"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TabbedActivity"
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

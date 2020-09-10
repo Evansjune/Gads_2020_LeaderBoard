@@ -7,25 +7,22 @@
     android:layout_height="wrap_content"
 
     >
-<ImageView
-    android:src="@drawable/ic_check"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+
     <ImageView
-        android:id="@+id/cancel"
-        android:src="@mipmap/ic_remove"
+        android:id="@+id/submitted"
+        android:src="@mipmap/ic_submitted"
         android:scaleType="centerInside"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
-
+        android:layout_width="300dp"
+        android:layout_height="100dp"/>
 
     <TextView
-        android:layout_below="@+id/cancel"
+        android:layout_below="@+id/submitted"
         android:id="@+id/textView"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -33,19 +30,9 @@
         android:layout_centerInParent="true"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="Are you sure ?"
+        android:text="Submission Successfully"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="40dp"
         />
-    <Button
-        android:layout_below="@+id/textView"
-        android:id="@+id/yesButton"
-        android:textAllCaps="false"
-        android:layout_marginTop="20dp"
-        android:text="Yes"
-        android:background="@drawable/button_pressed"
-        android:layout_width="wrap_content"
-android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

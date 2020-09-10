@@ -1,15 +1,20 @@
 package com.talentjoko.leadershipboard2020;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.android.volley.DefaultRetryPolicy;
@@ -24,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SubmitActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
@@ -58,25 +64,71 @@ public class SubmitActivity extends AppCompatActivity {
         submitToGoggleForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (firstName.getText().toString().trim().length() > 0 && lastName.getText().toString().trim().length() > 0
-                        && email.getText().toString().trim().length() > 0 && githubLink.getText().toString().trim().length() > 0 ) {
-                    postData(firstName.getText().toString().trim(), lastName.getText().toString().trim() ,email.getText().toString().trim(),githubLink.getText().toString().trim());
-                } else {
-                    Snackbar.make(view, "Required Fields Missing", Snackbar.LENGTH_LONG).show();
-                }
+
+                sureDialog();
+
             }
         });
-      /*  fab.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+    private void sureDialog() {
+        final Dialog dialog = new Dialog(SubmitActivity.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        dialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_check);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.setTitle("Dialog Title");
+
+        dialog.show();
+        Button yes = (Button)dialog.findViewById(R.id.yesButton);
+        yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtName.getText().toString().trim().length() > 0 && edtPhone.getText().toString().trim().length() > 0) {
-                    postData(edtName.getText().toString().trim(), edtPhone.getText().toString().trim());
+                if (firstName.getText().toString().trim().length() > 0 && lastName.getText().toString().trim().length() > 0
+                        && email.getText().toString().trim().length() > 0 && githubLink.getText().toString().trim().length() > 0 ) {
+                      postData(firstName.getText().toString().trim(), lastName.getText().toString().trim() ,email.getText().toString().trim(),githubLink.getText().toString().trim());
                 } else {
-                    Snackbar.make(view, "Required Fields Missing", Snackbar.LENGTH_LONG).show();
+                    dialog.dismiss();
+                   
                 }
-            }
-        });*/
 
+                Toast.makeText(getApplicationContext(),"Required Fields Missing!",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void failureDialog() {
+        Dialog dialog = new Dialog(SubmitActivity.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        dialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_check);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.not_submitted);
+        dialog.setTitle("Dialog Title");
+
+        dialog.show();
+
+
+    }
+
+    private void successDialog() {
+        Dialog dialog = new Dialog(SubmitActivity.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        dialog.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_check);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.submitted);
+        dialog.setTitle("Dialog Title");
+
+        dialog.show();
     }
 
 
@@ -91,13 +143,16 @@ public class SubmitActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d("TAG", "Response: " + response);
                         if (response.length() > 0) {
-                            Snackbar.make(fab, "Successfully Posted", Snackbar.LENGTH_LONG).show();
+
+                            successDialog();
+
                             firstName.setText(null);
                             lastName.setText(null);
                             email.setText(null);
                             githubLink.setText(null);
                         } else {
-                            Snackbar.make(fab, "Try Again", Snackbar.LENGTH_LONG).show();
+
+                            failureDialog();
                         }
                         progressDialog.dismiss();
                     }
@@ -106,7 +161,8 @@ public class SubmitActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Snackbar.make(fab, "Error while Posting Data", Snackbar.LENGTH_LONG).show();
+                failureDialog();
+
             }
         }) {
             @Override
@@ -124,5 +180,17 @@ public class SubmitActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(request);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return  true;
     }
 }
