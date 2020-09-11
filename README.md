@@ -1,4 +1,4 @@
-GADSLeaderBoard2020
+GADSLeaderBoard2020<br/>
 This project uses Retrofit, Picasso and Fragments to display images and text from GADS API to RecyclerView
 
 <b>SCREENSHOTS</b><br/>
